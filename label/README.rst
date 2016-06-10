@@ -13,8 +13,8 @@ pre-requisite
 
 You need to install following python libs :
 
-->    https://pypi.python.org/pypi/pyBarcode/0.7 or sudo pip install pybarcode
-->    https://pypi.python.org/pypi/utils
+->    https://pypi.python.org/pypi/pyBarcode/0.7 or sudo pip install pyBarcode
+->    https://pypi.python.org/pypi/utils or sudo pip install utils
 ->    sudo apt-get install python-cairosvg or sudo pip install cairosvg
 
 Credits

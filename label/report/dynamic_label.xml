@@ -8,12 +8,12 @@
                             <t t-foreach="get_data(data['form'].get('rows'),data['form'].get('columns'),data['form'].get('ids'),data ['form'].get('model'),data['form'].get('number_of_copy'))" t-as="row">
                                 <tr t-att-height="data['form']['height']">
                                     <t t-foreach="row" t-as="col">
-                                        <td t-att-width="data['form']['width']" t-att-style="'padding-left:'+data['form']['left_margin']+';padding-right:'+data['form']['right_margin']+';padding-top:'+data['form']['top_margin']+';border:1px solid black;'">
+                                        <td t-att-width="data['form']['width']" t-att-style="'padding-left:'+data['form']['left_margin']+';padding-right:'+data['form']['right_margin']+';padding-top:'+data['form']['top_margin']+';border:'+data['form']['border']+';'">
                                             <t t-foreach="col" t-as="val">
                                                 <t t-if="val['newline']">
                                                     <br/>
                                                 </t>
-                                                <span style="val['style']">
+                                                <span style="val['style']" t-if="not data['form'].get('only_newline', False)">
                                                     <t t-if="(val.get('type') == 'normal')">
                                                         <t t-esc="val['string']"/>
                                                         <t t-esc="val['value']"/></t>

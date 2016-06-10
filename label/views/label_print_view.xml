@@ -25,8 +25,8 @@
                                             <field name="nolabel"/>
                                             <group colspan="4" col="6">
                                                 <field name="python_expression"/>
-                                                <field name="field_id" attrs="{'invisible': [('python_expression','=',True)], 'required': [('python_expression','=',False)]}" domain="[('ttype', 'not in', ['one2many', 'refenrence', 'function'])]"  context="{'model_list':parent.model_list}"/>
-                                                <field name="python_field" attrs="{'invisible': [('python_expression','=',False)], 'required': [('python_expression','=',True)]}"/>
+                                                <field name="field_id" attrs="{'invisible': [('python_expression','=',True)], 'required': [('python_expression','=',False),('newline','=',False)]}" domain="[('ttype', 'not in', ['one2many', 'refenrence', 'function'])]"  context="{'model_list':parent.model_list}"/>
+                                                <field name="python_field" attrs="{'invisible': [('python_expression','=',False)], 'required': [('python_expression','=',True),('newline','=',False)]}"/>
                                             </group>
                                             <newline/>
                                             <label string="Python experession field must be start with obj. e.g:- obj.M2O_field.field_name" colspan="4"/>
@@ -34,8 +34,9 @@
                                     </form>
                                     <tree string="Fields">
                                         <field name="sequence"/>
-                                        <field name="field_id" domain="[('ttype', 'not in', ['one2many', 'refenrence', 'function'])]"/>
-                                        <field name="python_field"/>
+                                        <field name="python_expression" invisible="1"/>
+                                        <field name="field_id" domain="[('ttype', 'not in', ['one2many', 'refenrence', 'function'])]" attrs="{'invisible': [('python_expression','=',True)]}"/>
+                                        <field name="python_field" attrs="{'invisible': [('python_expression','=',False)]}"/>
                                         <field name="type"/>
                                     </tree>
                                 </field>

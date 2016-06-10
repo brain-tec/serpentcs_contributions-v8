@@ -52,6 +52,7 @@ class label_print_wizard(models.TransientModel):
     is_barcode = fields.Boolean('Is Barcode?')
     is_image = fields.Boolean('Is Image?')
     brand_id = fields.Many2one('label.brand', 'Brand Name', required=True)
+    print_border = fields.Boolean('Print Border', default=False)
 
     @api.multi
     def print_report(self):
@@ -84,6 +85,7 @@ class label_print_wizard(models.TransientModel):
                 'left_margin' : str(data.name.left_margin) + "mm",
                 'right_margin' : str(data.name.right_margin) + "mm",
                 'cell_spacing' : str(data.name.cell_spacing)+ "px",
+                'border' : '1px solid black' if data.print_border else 'None',
                 'ids': self._context.get('active_ids', [])
             }
         cr,uid,context=self.env.args

@@ -61,7 +61,7 @@ class label_print(models.Model):
         action_obj = self.env['ir.actions.act_window']
         for data in self.browse(self.ids):
             src_obj = data.model_id.model
-            button_name = _('Label (%s)') % data.name
+            button_name = _('%s') % data.name
 
             vals['ref_ir_act_report'] = action_obj.create({
                  'name': button_name,
@@ -115,7 +115,7 @@ class label_print_field(models.Model):
                              ('image', 'Image')], 'Type', required=True,
                             default='normal')
     python_expression = fields.Boolean('Python Expression')
-    python_field = fields.Char('Fields', size=32)
+    python_field = fields.Text('Fields')
     fontsize = fields.Float("Font Size",default=8.0)
     position = fields.Selection([('left','Left'),('right','Right'),
                                  ('top','Top'),('bottom','Bottom')],
