@@ -40,7 +40,7 @@ class label_print(models.Model):
         action_obj = self.env['ir.actions.act_window']
         for data in self.browse(self.ids):
             src_obj = data.model_id.model
-            button_name = _('Label (%s)') % data.name
+            button_name = _('%s') % data.name
             
             vals['ref_ir_act_report'] = action_obj.create({
                  'name': button_name,
