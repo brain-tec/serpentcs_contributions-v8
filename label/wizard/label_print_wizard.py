@@ -66,14 +66,14 @@ class label_print_wizard(models.TransientModel):
             column = float(210) / float(data.name.width or 1)
             total_row = math.ceil(float(total_record)/ (column or 1))
             no_row_per_page = int(297 / data.name.height)
-            height = 297 / (no_row_per_page or 1)
+            height = int(297.0 / (no_row_per_page or 1))
             datas = {
                 'rows': int(total_row),
                 'columns': int(column) == 0 and 1 or int(column),
                 'model' : self._context.get('active_model'),
-                'height' : str(height * 3.693602694) + "mm",
+                'height' : str(height) + "mm",
                 'no_row_per_page': no_row_per_page,
-                'width' : str(float(data.name.width)  * 3.693602694) + "mm",
+                'width' : str(float(data.name.width)) + "mm",
                 'image_width': str(data.image_width),
                 'image_height':str(data.image_height),
                 'barcode_width':data.barcode_width,
