@@ -2,8 +2,7 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2013 Serpent Consulting Services Pvt. Ltd. (<http://www.serpentcs.com>)
+#    Copyright (C) 2017-TODAY Serpent Consulting Services Pvt. Ltd.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,18 +18,4 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
-from openerp import models, fields
-
-class res_request(models.Model):
-    _name = 'res.request'
-    _order = 'date desc'
-    _description = 'Request'
-
-    name = fields.Char('Subject', required=True)
-    date = fields.Datetime('Date')
-    act_from = fields.Many2one('res.users', 'From')
-    act_to = fields.Many2one('res.users', 'To')
-    body = fields.Text('Request')
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+import invoice_report_wiz
