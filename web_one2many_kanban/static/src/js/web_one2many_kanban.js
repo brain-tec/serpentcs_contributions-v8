@@ -8,6 +8,7 @@ odoo.define('web_one2many_kanban.web_one2many_kanban', function(require) {
     var kanban_widgets = require('web_kanban.widgets');
     var KanbanColumn = require('web_kanban.Column');
     var fields_registry = kanban_widgets.registry;
+    var pyeval = require('web.pyeval');
     var QWeb = core.qweb;
     var _t = core._t;
 
@@ -199,12 +200,12 @@ odoo.define('web_one2many_kanban.web_one2many_kanban', function(require) {
             });
         },
 
-        load_groups: function () {
+        load_groups: function (options) {
             var self = this;
-            var group_by_field = this.group_by_field || this.default_group_by;
+            var group_by_field = options.group_by_field || options.default_group_by;
             this.fields_keys = _.uniq(this.fields_keys.concat(group_by_field));
 
-            return new Model(this.model, this.search_context, this.search_domain)
+            return new Model(this.model, options.search_context, options.search_domain)
             .query(this.fields_keys)
             .group_by([group_by_field])
             .then(function (groups) {
@@ -242,8 +243,8 @@ odoo.define('web_one2many_kanban.web_one2many_kanban', function(require) {
 
                 // fetch group data (display information)
                 var group_ids = _.without(_.map(groups, function (elem) { return elem.attributes.value[0];}), undefined);
-                if (self.grouped_by_m2o && group_ids.length) {
-                    return new data.DataSet(self, self.relation)
+                if (options.grouped_by_m2o && group_ids.length) {
+                    return new data.DataSet(self, options.relation)
                         .read_ids(group_ids, _.union(['display_name'], group_by_fields_to_read))
                         .then(function(results) {
                             _.each(groups, function (group) {
@@ -260,7 +261,7 @@ odoo.define('web_one2many_kanban.web_one2many_kanban', function(require) {
                     _.each(groups, function (group) {
                         var value = group.attributes.value;
                         group.id = value instanceof Array ? value[0] : value;
-                        var field = self.fields_view.fields[self.group_by_field];
+                        var field = self.fields_view.fields[options.group_by_field];
                         if (field && field.type === "selection") {
                             value= _.find(field.selection, function (s) { return s[0] === group.id; });
                         }
@@ -349,11 +350,7 @@ odoo.define('web_one2many_kanban.web_one2many_kanban', function(require) {
         render_ungrouped: function (fragment,el) {
             var self = this;
             var options = _.clone(this.record_options);
-            for (var i = 0, ghost_div; i < 6; i++) {
-                ghost_div = $("<div>").addClass("o_kanban_record o_kanban_ghost");
-                ghost_div.appendTo(fragment);
-            }
-            this.postprocess_m2m_tags();
+            
             if(_.keys(self.dataset.o2m_field).length){
                 _.each(this.data.records, function (record) {
                     if(_.keys(self.dataset.o2m_field).length){
@@ -376,6 +373,12 @@ odoo.define('web_one2many_kanban.web_one2many_kanban', function(require) {
                         })
                     }
                 });
+                
+                for (var i = 0, ghost_div; i < 6; i++) {
+                    ghost_div = $("<div>").addClass("o_kanban_record o_kanban_ghost");
+                    ghost_div.appendTo(fragment);
+                }
+                this.postprocess_m2m_tags();
             }else{
                 _.each(this.data.records, function (record) {
                     var kanban_record = new KanbanRecord(self, record, options);

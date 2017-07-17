@@ -1,9 +1,9 @@
-odoo.define('web_groupby_expand.web_groupby_expand',function (require) {
+odoo.define('web_groupby_expand.web_groupby_expand', function(require) {
+
     var core = require('web.core');
     var ListView = require('web.ListView');
     var ViewManager = require('web.ViewManager');
     var _t = core._t;
-    var QWeb = core.qweb;
 
     ListView.Groups.include({
 
@@ -25,7 +25,7 @@ odoo.define('web_groupby_expand.web_groupby_expand',function (require) {
                     $el[0].appendChild(
                         self.render_groups(groups));
                     if (post_render) { post_render(); }
-                    if (self.options.expand){
+                    if (self.options.expand) {
                         self.render_auto_groups(self.groups_auto);
                     }
                 }, function (dataset) {
@@ -109,7 +109,6 @@ odoo.define('web_groupby_expand.web_groupby_expand',function (require) {
                         }
                         group_label = _.str.escapeHTML(group_label);
                     }
-                        
                     // group_label is html-clean (through format or explicit
                     // escaping if format failed), can inject straight into HTML
                     $group_column.html(_.str.sprintf(_t("%s (%d)"),
@@ -156,8 +155,8 @@ odoo.define('web_groupby_expand.web_groupby_expand',function (require) {
             if (!groups_auto) {
                 groups_auto = self.groups_auto;
             }
-            _.each(groups_auto, function(vals){
-                if(vals[1].datagroup.openable){
+            _.each(groups_auto, function(vals) {
+                if (vals[1].datagroup.openable) {
                     if (!vals[0].data('open')) {
                         vals[0].data('open', true)
                             .find('span.ui-icon')
@@ -191,30 +190,32 @@ odoo.define('web_groupby_expand.web_groupby_expand',function (require) {
 
         load_list: function(data) {
             var self = this;
-            $('.oe-list-expand').unbind('click').bind('click',function(){
+            $('.oe-list-expand').unbind('click').bind('click',function() {
                 self.options.expand = true;
                 self.groups.render_auto_groups(false)
             })
-            this._super.apply(this, arguments);
+            var res = this._super.apply(this, arguments);
             $("#expand_icon").addClass('fa-expand');
             $("#expand_icon").removeClass('fa-compress');
-            if(self.groups.datagroup.dataset){
+            if (self.groups.datagroup.dataset) {
                 $('.oe-list-expand').hide();
             }
-            if(self.groups.datagroup.group_by == ""){
-               $('.oe-list-expand').hide();
-            }else if(self.groups.datagroup.group_by == undefined){
+            if (self.groups.datagroup.group_by == "") {
+                $('.oe-list-expand').hide();
+            } else if (self.groups.datagroup.group_by == undefined) {
                 $('.oe-list-expand').hide();
                 $(".oe_list_pager").hide();
-            }else{
+            } else {
                 $('.oe-list-expand').show();
             }
+            return res;
         },
 
         do_search: function (domain, context, group_by) {
-            this._super(domain, context, group_by);
+            var res = this._super(domain, context, group_by);
             this.options.expand = false;
             this.groups.groups_auto = []
+            return res;
         },
 
     });
@@ -222,12 +223,12 @@ odoo.define('web_groupby_expand.web_groupby_expand',function (require) {
     ViewManager.include({
 
         switch_mode: function (view_type, no_store, options) {
-            this._super.apply(this, arguments);
-            if(view_type != 'list'){
+            var res = this._super.apply(this, arguments);
+            if (view_type != 'list') {
                 $('.oe-list-expand').hide();
             }
+            return res;
         }, 
-
     });
 
 });

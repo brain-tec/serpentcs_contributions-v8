@@ -167,7 +167,7 @@ class base_module_record(models.Model):
             else:
                 field = doc_createXElement(doc, 'field')
                 field.setAttribute("name", key)
-                field.appendChild(doc.createTextNode(val))
+                field.appendChild(doc.createTextNode(ustr(val)))
                 record.appendChild(field)
         return record_list, noupdate
 
@@ -420,7 +420,7 @@ class base_module_record(models.Model):
         if len(recording_data):
             self.blank_dict = {}
             doc = minidom.Document()
-            terp = doc.createElement("openerp")
+            terp = doc.createElement("odoo")
             doc.appendChild(terp)
             for rec in recording_data:
                 if rec[0] == 'workflow':
