@@ -2,7 +2,10 @@
 # See LICENSE file for full copyright and licensing details.
 
 import zipfile
-import StringIO
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
 import base64
 
 from openerp.tools import ustr
@@ -17,7 +20,7 @@ def _create_yaml(self, data):
     try:
         res_xml = mod.generate_yaml()
         return {'yaml_file': base64.encodestring(res_xml)}
-    except Exception, e:
+    except Exception as e:
         raise UserError(e)
 
 
