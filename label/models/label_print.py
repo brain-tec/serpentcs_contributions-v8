@@ -22,6 +22,8 @@ class LabelPrint(models.Model):
                                    help="Sidebar button to open the \
                                    sidebar action")
     model_list = fields.Char('Model List', size=256)
+    paperformat_id = fields.Many2one('report.paperformat', string='Paper Format')
+    single_page = fields.Boolean(string='Single page label')
 
     @api.onchange('model_id')
     def onchange_model(self):
@@ -91,7 +93,7 @@ class LabelPrintField(models.Model):
                              ('image', 'Image')],
                             'Type', required=True, default='normal')
     python_expression = fields.Boolean('Python Expression')
-    python_field = fields.Char('Fields', size=32)
+    python_field = fields.Char('Fields')
     fontsize = fields.Float("Font Size", default=8.0)
     position = fields.Selection([('left', 'Left'), ('right', 'Right'),
                                  ('top', 'Top'), ('bottom', 'Bottom')],
