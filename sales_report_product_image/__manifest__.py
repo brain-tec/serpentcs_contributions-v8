@@ -1,7 +1,7 @@
 # See LICENSE file for full copyright and licensing details.
 
 {
-    'name': 'Product Image for Sale',
+    'name': 'Product Image for Sales Order',
     'author': 'Serpent Consulting Services Pvt. Ltd.',
     'maintainer': 'Serpent Consulting Services Pvt. Ltd.',
     'version': '12.0.1.0.0',
@@ -11,7 +11,7 @@
     'website': 'http://www.serpentcs.com',
     'depends': [
         'sale',
-        'web_tree_image', #OCA should have it in v12
+        'web_tree_image_tooltip',
     ],
     'data': [
         'views/sale_product_view.xml',
