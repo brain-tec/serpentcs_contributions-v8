@@ -184,8 +184,8 @@ odoo.define('web_groupby_expand.web_groupby_expand', function(require) {
         load_list: function(data) {
             var self = this;
             var oe_list_expand = $(".oe-list-expand");
-            if(self.ViewManager && 
-                    self.ViewManager.switch_buttons && 
+            if(self.ViewManager &&
+                    self.ViewManager.switch_buttons &&
                     self.ViewManager.switch_buttons.$multi){
                 _.each(self.ViewManager.switch_buttons.$multi,function(mul){
                     if($(mul).hasClass("oe-list-expand")){
@@ -205,7 +205,7 @@ odoo.define('web_groupby_expand.web_groupby_expand', function(require) {
             if (self.groups.datagroup.dataset) {
                 oe_list_expand.addClass("hidden");
             }
-            if (self.groups.datagroup.group_by === "" || self.groups.datagroup.group_by.length === 0) {
+            if (self.groups.datagroup.group_by === "" || (self.groups.datagroup.group_by && self.groups.datagroup.group_by.length)) {
                 oe_list_expand.addClass("hidden");
             } else if (typeof self.groups.datagroup.group_by === "undefined") {
                 oe_list_expand.addClass("hidden");
