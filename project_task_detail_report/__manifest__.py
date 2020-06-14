@@ -1,6 +1,4 @@
 #    Copyright (C) 2017 Serpent Consulting Services Pvt. Ltd.
-#    Copyright (C) 2017 OpenERP SA (<http://www.serpentcs.com>)
-#    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 
 {

@@ -1,4 +1,3 @@
-alt: License: AGPL-3
 
 Website Product Brand
 ==================================

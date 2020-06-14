@@ -1,7 +1,7 @@
 # See LICENSE file for full copyright and licensing details.
 
 {
-    'name': 'SO - Product Price Check',
+    'name': 'Sale Order - Product Price Check',
     'version': '12.0.1.0.0',
     'category': 'Sales Management',
     'author': 'Serpent Consulting Services Pvt. Ltd.',
