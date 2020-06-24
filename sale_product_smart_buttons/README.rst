@@ -1,8 +1,8 @@
 ==========================
-Project Task Detail Report
+Sale Product Smart Buttons
 ==========================
 
-* Print details of Task with project details and time sheet of the task with hours summary.
+* This module adds a Smart button to show total Sales amount for particular product.
 
 Usage
 =====
@@ -15,4 +15,5 @@ Credits
 
 Contributors
 ------------
+
 * Serpent Consulting Services Pvt. Ltd. <support@serpentcs.com>
