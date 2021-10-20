@@ -58,11 +58,9 @@ AbstractController.include({
         var res = this._super();
         var self = this;
         var totalViews = _.filter(self.actionViews, {multiRecord: self.isMultiRecord});
-        if (totalViews.length <= 1 ) {
+        if (config.device.isMobile) {
             var template = 'ControlPanel.SingleViewSwitchButtons';
-            res = $(QWeb.render(template, {
-                this:self
-            }));
+            res = res.add($(QWeb.render(template, {this: self})))
         }
         var oe_list_expand;
         _.each(res, function(rec){
