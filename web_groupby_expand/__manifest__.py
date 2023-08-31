@@ -1,9 +1,14 @@
-# -*- coding: utf-8 -*-
-# See LICENSE file for full copyright and licensing details.
+##############################################################################
+# Copyright (c) 2021 braintec AG (https://braintec.com)
+# All Rights Reserved
+#
+# Licensed under the AGPL-3.0 (http://www.gnu.org/licenses/agpl.html)
+# See LICENSE file for full licensing details.
+##############################################################################
 
 {
     "name": "Web GroupBy Expand",
-    "version": "13.0.1.0.0",
+    "version": "15.0.1.0.0",
     "author": "Serpent Consulting Services Pvt. Ltd.",
     "maintainer": "Serpent Consulting Services Pvt. Ltd.",
     "website": "http://www.serpentcs.com",
@@ -14,11 +19,14 @@
         "web",
     ],
     "data": [
-        "views/templates.xml",
     ],
-    "qweb": [
-        "static/src/xml/web_groups_expand.xml",
-    ],
-    "images": ["static/description/groupexpand.png"],
+    "assets": {
+        "web.assets_backend": [
+            "web_groupby_expand/static/src/js/web_groups_expand.js",
+        ],
+        "web.assets_qweb": [
+            "web_groupby_expand/static/src/xml/web_groups_expand.xml",
+        ],
+    },
     "installable": True,
 }
