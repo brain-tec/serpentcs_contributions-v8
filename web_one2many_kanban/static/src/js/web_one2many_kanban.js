@@ -22,13 +22,18 @@ KanbanRecord.include({
 
             _.each(o2x_field_names, function(o2x_field_name) {
                 var record = self.qweb_context.record[o2x_field_name];
-                if (record.type === 'one2many') {
+                if (record.type === 'one2many' && record.raw_value.length !== 0) {
+                    // only fetch data where this one2many field actually contains records
                     o2x_records.push(record);
                 }
             });
 
             var _super = this._super.bind(this);
 
+            if (o2x_records.length === 0) {
+                // no need to call the endpoint if there are no records to fetch data for
+                return _super();
+            }
             ajax.jsonRpc("/web/fetch_x2m_data", "call", {'o2x_records': o2x_records}).then(function (o2x_datas) {
                 for (var i=0; i < o2x_datas.length; i++) {
                     o2x_records[i].raw_value = o2x_datas[i];
