@@ -2,7 +2,7 @@
 
 {
     "name": "Import / Export Templating",
-    "version": "17.0.1.0.0",
+    "version": "18.0.1.0.0",
     "license": "LGPL-3",
     "author": "Serpent Consulting Services Pvt. Ltd.",
     "maintainer": "Serpent Consulting Services Pvt. Ltd.",
@@ -14,7 +14,10 @@
     import-export for non-technical users of ERP.
     """,
     "depends": ["web"],
-    "data": ["security/ir.model.access.csv", "wizard/wiz_download_template_view.xml"],
+    "data": [
+        "security/ir.model.access.csv",
+        "wizard/wiz_download_template_view.xml"
+    ],
     # Odoo App Store Specific
     "images": ["static/description/Banner_import_export_templating_17.png"],
     "installable": True,
