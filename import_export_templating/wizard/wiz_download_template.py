@@ -274,10 +274,7 @@ class WizDownloadTemplate(models.TransientModel):
                             for x in sheet.row_values(rownum)
                         ]
                         model = self.ir_model.model
-                        print("\n\n model", model)
                         ir_model_model = ir_model[1]
-                        print("\n\n ir_model_model", ir_model_model)
-                        # 10/0
                         if ir_model_model != model:
                             raise UserError(
                                 _(

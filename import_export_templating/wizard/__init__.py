@@ -43,7 +43,6 @@ def download_template(self, row_values=None, error_reason=None, error_value=None
     file_id = self.env["wiz.template.file"].create(
         {"file": buf, "name": self.ir_model.model + ".xls"}
     )
-    print("\n\n\n self.ir_model.model", self.ir_model.model)
 
     return {
         "res_id": file_id.id,

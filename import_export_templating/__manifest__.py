@@ -6,13 +6,13 @@
     "license": "LGPL-3",
     "author": "Serpent Consulting Services Pvt. Ltd.",
     "maintainer": "Serpent Consulting Services Pvt. Ltd.",
-    "website": "http://www.serpentcs.com",
+    "website": "https://www.serpentcs.com",
     "category": "Base",
     "summary": """
-    Standard import export template,
-    User-friendly templates to upload download bulk data Manage easy
-    import-export for non-technical users of ERP.
-    """,
+		Standard import export template,
+		User-friendly templates to upload download bulk data Manage easy
+		import-export for non-technical users of ERP.
+    		""",
     "depends": ["web"],
     "data": [
         "security/ir.model.access.csv",
