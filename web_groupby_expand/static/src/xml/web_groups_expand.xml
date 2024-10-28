@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<templates id="groupby_expand_template" xml:space="preserve">
-
-
-        <t t-name="ControlPanel.SwitchButtons" t-extend="ControlPanel.SwitchButtons">
-            <t t-jquery="t[t-foreach*='views'][t-as*='view']" t-operation="after">
-                <a id="expand_icon" class="btn btn-secondary fa fa-expand oe-list-expand" title="Expand" />
-            </t>
-        </t>
-        <t t-name="ControlPanel.SingleViewSwitchButtons">
-            <a id="expand_icon" class="btn btn-secondary fa fa-expand oe-list-expand" title="Expand"/>
-        </t>
-
+<templates xml:space="preserve">
+    <t t-inherit="web.ListView" t-inherit-mode="extension">
+        <xpath expr="//Layout/t[@t-set-slot='control-panel-always-buttons']" position="after">
+            <div class="groupby-header-btn">
+              <button t-if="model.root.groupBy.length > 0" type="button" class="btn btn-secondary expand-compress-btn exp-btn" t-on-click="() => this.expandlist()">
+                <a class="fa fa-expand"/>
+              </button>
+              <button t-if="model.root.groupBy.length > 0" type="button" class="btn btn-secondary expand-compress-btn cmp-btn o_hidden" t-on-click="() => this.compresslist()">
+                <a class="fa fa-compress"/>
+              </button>
+            </div>
+        </xpath>
+    </t>
 </templates>
