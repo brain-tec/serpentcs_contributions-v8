@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 # See LICENSE file for full copyright and licensing details.
 
 {
     "name": "Web GroupBy Expand",
-    "version": "13.0.1.0.0",
+    "version": "17.0.1.0.0",
     "author": "Serpent Consulting Services Pvt. Ltd.",
     "maintainer": "Serpent Consulting Services Pvt. Ltd.",
     "website": "http://www.serpentcs.com",
@@ -14,11 +13,15 @@
         "web",
     ],
     "data": [
-        "views/templates.xml",
+
     ],
-    "qweb": [
-        "static/src/xml/web_groups_expand.xml",
-    ],
+    "assets": {
+        "web.assets_backend": [
+            "/web_groupby_expand/static/src/css/web_groups_expand.css",
+            "/web_groupby_expand/static/src/js/web_groups_expand.js",
+            "/web_groupby_expand/static/src/xml/web_groups_expand.xml",
+        ],
+    },
     "images": ["static/description/groupexpand.png"],
     "installable": True,
 }
