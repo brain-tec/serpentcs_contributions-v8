@@ -12,9 +12,6 @@
     "depends": [
         "web",
     ],
-    "data": [
-
-    ],
     "assets": {
         "web.assets_backend": [
             "/web_groupby_expand/static/src/css/web_groups_expand.css",
