@@ -5,15 +5,12 @@
     "version": "18.0.1.0.0",
     "author": "Serpent Consulting Services Pvt. Ltd.",
     "maintainer": "Serpent Consulting Services Pvt. Ltd.",
-    "website": "http://www.serpentcs.com",
+    "website": "https://www.serpentcs.com",
     "category": "Web",
     "license": "AGPL-3",
     'summary': 'Expand all groups on single click',
     "depends": [
         "web",
-    ],
-    "data": [
-
     ],
     "assets": {
         "web.assets_backend": [
