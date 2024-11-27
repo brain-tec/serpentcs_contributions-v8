@@ -19,6 +19,6 @@
             "/web_groupby_expand/static/src/xml/web_groups_expand.xml",
         ],
     },
-    "images": ["static/description/groupexpand.png"],
+    "images": ["static/description/Banner_web_groupby_expand_18.png"],
     "installable": True,
 }
