@@ -8,12 +8,15 @@ iPushp - Employee Business Directory
 
 * After successfully registration employee can see details in iPushp tab
 
+=====
 Usage
 =====
 
+===========
 Bug Tracker
 ===========
 
+=======
 Credits
 =======
 

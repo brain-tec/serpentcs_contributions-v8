@@ -2,7 +2,7 @@
 <odoo>
     <template id="ipushp.iPushp" name="ipushp">
         <t t-call="website.layout">
-            <div class="">
+            <div class="ipushp_container">
                 <section class="s_fix_bg_snippet s_fix_bg_option s_fix_bg_snippet"
                     style="height:100vh;">
                     <div class="container-fluid s_fix_bg_title text-center">
@@ -40,16 +40,6 @@
                                     activity among families of SerpentCS which will enlighten the
                                     spirit of families and this will turn into the revenue
                                     generation and towards the ease of life.</p>
-                                <div class="col-md-12 text-center mt16">
-                                    <h4 class="text-center">अयं निजो परो वेति गणना लघुचेतसाम्।</h4>
-                                    <h4 class="text-center">उदारचरितानां तु वसुधैव कुटुम्बकम्॥</h4>
-                                </div>
-                                <div class="col-md-12 text-center mt16">
-                                    <h4 class="text-center">The small-minded count this is mine and
-                                        that is someone else's |</h4>
-                                    <h4 class="text-center">For the men of great character, the
-                                        whole world is their family ||</h4>
-                                </div>
                                 <p class="text-muted o_default_snippet_text"
                                     style="text-align: justify;">From Day 1, SerpentCS has always
                                     kept ‘Vasudhaiva Kutumbakam’ feeling in the roots. We have
