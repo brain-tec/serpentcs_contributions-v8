@@ -41,8 +41,8 @@ class WizDownloadTemplate(models.TransientModel):
 
     @api.onchange("type")
     def _get_active_model(self):
-        if self._context and self._context.get("active_model"):
-            model = self._context.get("active_model")
+        model = self._context.get("active_model")
+        if model:
             ir_model = self.env["ir.model"].search([("model", "=", model)])
             self.ir_model = ir_model.id
             return {"domain": {"ir_model": [("id", "=", ir_model.id)]}}
@@ -110,215 +110,115 @@ class WizDownloadTemplate(models.TransientModel):
         fl = BytesIO()
         workbook = xlwt.Workbook()
         worksheet = workbook.add_sheet(self.ir_model.name)
+
         bold = xlwt.easyxf("font: bold 1;")
         main_header = xlwt.easyxf(
             "font: bold 1, height 270;"
-            " align: horiz center,vert center ,wrap 1;"
-            "borders :top hair, bottom hair,left hair, right hair,"
-            " bottom_color black,top_color black"
+            " align: horiz center,vert center,wrap 1;"
+            "borders: top hair, bottom hair, left hair, right hair, "
+            "bottom_color black, top_color black"
         )
         label_header = xlwt.easyxf(
             "font: bold 1, height 230;"
-            " align: horiz center,vert center ,wrap 1;"
-            "borders :top hair, bottom hair,left hair, right hair,"
-            " bottom_color black,top_color black"
+            " align: horiz center,vert center,wrap 1;"
+            "borders: top hair, bottom hair, left hair, right hair, "
+            "bottom_color black, top_color black"
         )
 
-        if self.ir_model:
-            col = 1
-            count = -1
-            row_12 = 12
-            row_13 = 13
-            row_14 = 14
-            row_15 = 15
-            row_16 = 16
-            row_17 = 17
+        row_start = 12
+        col_width = 9500
+        max_col = 5
+        column_headers = ["Column Name:", "Type:", "Mandatory:", "Column Labels:"]
+        row_indices = list(range(row_start, row_start + len(column_headers)))
 
-            worksheet.row(0).height = 500
-            worksheet.col(0).width = 6200
-            worksheet.col(1).width = 9500
-            worksheet.col(2).width = 9500
-            worksheet.col(3).width = 9500
-            worksheet.col(4).width = 9500
-            worksheet.write_merge(0, 0, 0, 4, "Data Import Template", main_header)
-            worksheet.write_merge(1, 1, 0, 4, "")
-            worksheet.write_merge(2, 2, 0, 4, "")
-            worksheet.write_merge(3, 3, 0, 2, "Notes:", bold)
-            worksheet.write_merge(
-                4, 4, 0, 2, "Please do not change the template headings."
-            )
-            worksheet.write_merge(5, 5, 0, 2, "First data column must be blank.")
-            worksheet.write_merge(
-                6,
-                6,
-                0,
-                2,
-                'If you are uploading new records, "Naming Series"'
-                " becomes mandatory, if present.",
-            )
-            worksheet.write_merge(
-                7,
-                7,
-                0,
-                2,
-                "Only mandatory fields are necessary for new"
-                " records. You can keep non-mandatory columns"
-                " blank if you wish.",
-            )
-            worksheet.write_merge(
-                8, 8, 0, 2, "For updating, you can update only selective" " columns."
-            )
-            worksheet.write_merge(
-                9,
-                9,
-                0,
-                2,
-                "You can only upload upto 5000 records in one go."
-                " (may be less in some cases)",
-            )
+        worksheet.row(0).height = 500
+        for col in range(max_col):
+            worksheet.col(col).width = col_width if col > 0 else 6200
 
-            worksheet.write_merge(3, 3, 3, 4, "Data Import Notes:", bold)
-            worksheet.write_merge(4, 4, 3, 4, "")
-            worksheet.write_merge(
-                5, 5, 3, 4, 'Many2one: You can enter "NAME" of the relational' " model!"
-            )
-            worksheet.write_merge(
-                6,
-                6,
-                3,
-                4,
-                'Many2many: You can enter "Name" of the relational'
-                ' model Seprate by ";"',
-            )
-            worksheet.write_merge(
-                7,
-                7,
-                3,
-                4,
-                "One2many: Let this blank! & Download Blank"
-                " Template for displayed comodel to Import!",
-            )
-            worksheet.write_merge(
-                8,
-                8,
-                3,
-                4,
-                "There should only be one required field in relational model for creation of new record.",
-            )
-            worksheet.write_merge(9, 9, 3, 4, "")
-            worksheet.write_merge(10, 10, 3, 4, "")
+        worksheet.write_merge(0, 0, 0, max_col - 1, "Data Import Template", main_header)
 
-            worksheet.write(row_12, 0, "DocType:", bold)
-            worksheet.write(row_12, 1, self.ir_model.model)
-            worksheet.write(row_13, 0, "Column Name:", bold)
-            worksheet.write(row_14, 0, "Type:", bold)
-            worksheet.write(row_15, 0, "Mandatory:", bold)
-            worksheet.write(row_16, 0, "Column Labels:", bold)
-            worksheet.write(row_17, 0, "Start entering data this line", bold)
+        def merge_cells(row, col_start, col_end, value, style=None):
+            """Helper function to merge cells with a given style."""
+            if style is None:
+                style = xlwt.easyxf("font: ")
+            worksheet.write_merge(row, row, col_start, col_end, value, style)
 
-            if not self.fields_list_ids and not error_value:
-                raise UserError(_("Fields should not be blank!"))
+        # Notes section
+        for row in range(1, 3):
+            worksheet.write_merge(row, row, 0, 4, "")
+        worksheet.write_merge(3, 3, 0, 2, "Notes:", bold)
+        notes = [
+            "Please do not change the template headings.",
+            "First data column must be blank.",
+            'If you are uploading new records, "Naming Series" becomes mandatory, if present.',
+            "Only mandatory fields are necessary for new records. You can keep non-mandatory columns blank if you wish.",
+            "For updating, you can update only selective columns.",
+            "You can only upload upto 5000 records in one go. (may be less in some cases)",
+        ]
+        for idx, note in enumerate(notes, start=4):
+            worksheet.write_merge(idx, idx, 0, 2, note)
 
-            if self.fields_list_ids:
-                for line in self.fields_list_ids:
-                    count += 1
-                    worksheet.col(count + 1).width = 9900
-                    worksheet.write(row_13, col, line.name)
-                    worksheet.write(
-                        row_14,
-                        col,
-                        line.ttype + " " + "Relation: " + str(line.relation) + "",
-                    )
-                    # Check for delegated field!
-                    delegated = False
-                    data = "No"
-                    if (
-                        line.ttype == "many2one"
-                        and line.relation
-                        in [x.model for x in self.ir_model.inherited_model_ids]
-                        and not line.related
-                        or line.ttype == "one2many"
-                    ):
-                        delegated = True
-                    # Check for all fields and its required attribute!
-                    if line.required and not delegated:
-                        data = "Yes"
-                    worksheet.write(row_15, col, str(data))
-                    worksheet.write(row_16, col, line.field_description, label_header)
-                    col += 1
+        import_notes = [
+        'Many2one: You can enter "NAME" of the relational model!',
+        'Many2many: You can enter "Name" of the relational model, separate by ";"',
+        "One2many: Let this blank! & Download Blank Template for displayed comodel to Import!",
+        "There should only be one required field in relational model for creation of new record.",
+        ]
+        merge_cells(3, 3, 4, "Data Import Notes:", bold)
+        for i, note in enumerate(import_notes, start=5):
+            merge_cells(i, 3, 4, note)
 
-            elif row_values and error_value:
-                for line in row_values:
-                    count += 1
-                    worksheet.col(count + 1).width = 9900
-                    if count == 13:
-                        i = line.index("Column Name:")
-                        del line[i]
-                        for data in line:
-                            worksheet.write(row_13, col, data)
-                            col += 1
-                        col = 1
-                    elif count == 14:
-                        i = line.index("Type:")
-                        del line[i]
-                        for data in line:
-                            worksheet.write(row_14, col, data)
-                            col += 1
-                        col = 1
+        labels = ["DocType:", *column_headers, "Start entering data this line"]
+        worksheet.write(12, 1, self.ir_model.model)
+        default_style = xlwt.easyxf("font: height 230; align: horiz left, vert center")
+        for idx, label in enumerate(labels):
+            worksheet.write(row_start + idx, 0, label, bold if idx < 2 or idx == len(labels) - 1 else default_style)
 
-                    elif count == 15:
-                        i = line.index("Mandatory:")
-                        del line[i]
-                        for data in line:
-                            worksheet.write(row_15, col, str(data))
-                            col += 1
-                        col = 1
+        if not self.fields_list_ids and not error_value:
+            raise UserError(_("Fields should not be blank!"))
 
-                    elif count == 16:
-                        i = line.index("Column Labels:")
-                        del line[i]
-                        for data in line:
-                            worksheet.write(row_16, col, data, label_header)
-                            col += 1
-                        worksheet.write(
-                            row_16, col, "REASONS: (NOT CREATED RECORD)", label_header
-                        )
-                        col += 1
-                        col = 1
+        if self.fields_list_ids:
+            for col_idx, field in enumerate(self.fields_list_ids, start=1):
+                worksheet.col(col_idx).width = col_width
+                worksheet.write(row_start + 1, col_idx, field.name)
+                field_info = f"{field.ttype} Relation: {field.relation}" if field.relation else field.ttype
+                worksheet.write(row_start + 2, col_idx, field_info)
 
-                    elif count == 17:
-                        for each_error in error_value:
-                            del each_error[0]
-                            reason = set(each_error) & set(error_reason)
-                            for value in each_error:
-                                worksheet.write(row_17, col, str(value))
-                                col += 1
-                            worksheet.write(
-                                row_17,
-                                col,
-                                (
-                                    str(reason) + ": Value not found in Database!"
-                                    " Please create it"
-                                    " first. once create"
-                                    " value in database."
-                                    " remove (REASON)"
-                                    " column for IMPORT!"
-                                ),
-                            )
-                            col += 1
-                            row_17 += 1
-                            col = 1
+                is_delegated = (
+                        (field.ttype == "many2one" and field.relation in [x.model for x in
+                                                                          self.ir_model.inherited_model_ids] and not field.related)
+                        or field.ttype == "one2many"
+                )
+                is_required = "Yes" if field.required and not is_delegated else "No"
+                worksheet.write(row_start + 3, col_idx, is_required)
+                worksheet.write(row_start + 4, col_idx, field.field_description, label_header)
+
+        if row_values and error_value:
+            for count, line in enumerate(row_values, start=row_start + 1):
+                if count in row_indices:
+                    header = column_headers[count - row_start - 1]
+                    if header in line:
+                        line.remove(header)
+                    for col_idx, data in enumerate(line, start=1):
+                        worksheet.col(col_idx).width = col_width
+                        worksheet.write(row_indices[count - row_start - 1], col_idx, data, label_header)
+
+                elif count == row_start + len(column_headers):
+                    worksheet.write(row_start + len(column_headers), len(line), "REASONS: (NOT CREATED RECORD)",
+                                    label_header)
+                    for each_error in error_value:
+                        reason = set(each_error) & set(error_reason)
+                        for col_idx, value in enumerate(each_error[1:], start=1):
+                            worksheet.write(count, col_idx, str(value))
+                        worksheet.write(count, len(each_error),
+                                        f"{reason}: Value not found in Database! Please create it first.")
 
         workbook.save(fl)
         fl.seek(0)
         buf = base64.encodebytes(fl.read())
-        ctx = dict(self._context)
-        vals = {"file": buf}
-        ctx.update(vals)
+        ctx = dict(self._context, file=buf)
         self.env.args = self._cr, self._uid, misc.frozendict(ctx)
-        file_id = self.env["wiz.template.file"].create(
-            {"file": buf, "name": self.ir_model.model + ".xls"}
-        )
+        file_id = self.env["wiz.template.file"].create({"file": buf, "name": f"{self.ir_model.model}.xls"})
 
         return {
             "res_id": file_id.id,
