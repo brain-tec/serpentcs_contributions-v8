@@ -7,8 +7,8 @@
     'summary': 'Project Team Management',
     'category': 'Project Management',
     'website': 'https://www.serpentcs.com',
-    'version': '17.0.1.0.0',
-    'license': 'AGPL-3',
+    'version': '18.0.1.0.0',
+    'license': 'LGPL-3',
     'depends': [
         'project',
         'crm',
@@ -17,7 +17,7 @@
         'views/project_team_view.xml',
     ],
     'images': [
-        'static/description/ProjectTeam.png',
+        'static/description/Banner_project_team_18.png',
     ],
     'installable': True,
 }
