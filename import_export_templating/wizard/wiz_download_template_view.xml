@@ -98,12 +98,12 @@
                             name="fields_list_ids"
                             readonly = "field_names_computed == []"
                         />
-                            <!-- attrs="{'readonly':[('field_names_computed', '=', [])]}" -->
+
                         <field
                             name="field_names_computed"
                             invisible = "ir_model != True"
                         />
-                            <!-- attrs="{'invisible':[('ir_model', '!=', True)]}" -->
+
                     </page>
                 </notebook>
                 <footer>
@@ -116,7 +116,7 @@
                         icon="fa-file-excel-o"
                         help="It helps to download blank template based on fields selection!"
                     />
-                        <!-- attrs="{'invisible':[('type', '!=', 'export')]}" -->
+
                     <button
                         name="import_data"
                         class="oe_button oe_form_button oe_highlight"
@@ -126,7 +126,7 @@
                         icon="fa-file"
                         help="It helps to import data to selection of model and downloaded template!"
                     />
-                        <!-- attrs="{'invisible':[('type', '!=', 'import')]}" -->
+
                     <button
                         special="cancel"
                         context='{"close_previous_dialog": True}'
