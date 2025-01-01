@@ -27,7 +27,7 @@
             "ipushp/static/src/css/style.css",
         ]
     },
-    "images": ["static/description/page_1.png"],
+    "images": ["static/description/Banner_ipushp_18.png"],
     "installable": True,
     "price": 27,
     "currency": "EUR",
