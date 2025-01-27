@@ -9,13 +9,12 @@ class BusinessCategory(models.Model):
 
     name = fields.Char("Name", required=True)
 
-    @api.model
-    def create(self, vals):
-        existing_category = self.env['business.category'].search([('name', '=', vals.get('name'))])
-        if existing_category:
-            raise ValidationError("A Business Category with the same name already exists.")
-
-        return super(BusinessCategory, self).create(vals)
+    _sql_constraints = [
+        ('name_unique',
+         'UNIQUE(name)',
+         'A Business Category with the same name already exists.')
+    ]
+   
 
 
 class Relation(models.Model):

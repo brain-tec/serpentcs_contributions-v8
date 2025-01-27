@@ -7,14 +7,14 @@
             <xpath expr="//notebook" position="inside">
                 <page name="iPushp" string="iPushp">
                     <field name="ipushp_ids">
-                        <tree name="iPushp">
+                        <list name="iPushp">
                             <field name="name" />
                             <field name="phone" />
                             <field name="email" />
                             <field name="description" />
                             <field name="relation" widget="selection" />
                             <field name="category_id" widget="selection" />
-                        </tree>
+                        </list>
                         <form name="iPushp">
                             <group>
                                 <field name="name" />
@@ -56,12 +56,12 @@
                         <page string="Service History">
                             <field name="service_history_line_id" string="Service History"
                                 widget="section_and_note_one2many">
-                                <tree editable="bottom">
+                                <list editable="bottom">
                                     <field name="emp_id" string="Employee"/>
                                     <field name="descriptions" string="Description" />
                                     <field name="feedback" string="Feedback" />
                                     <field name="rating" string="Rating" widget="priority"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                     </notebook>
@@ -70,17 +70,17 @@
         </field>
     </record>
     <record id="view_business_line_tree" model="ir.ui.view">
-        <field name="name">business.line.tree</field>
+        <field name="name">business.line.list</field>
         <field name="model">business.line</field>
         <field name="arch" type="xml">
-            <tree name="Business">
+            <list name="Business">
                 <field name="name" />
                 <field name="phone" />
                 <field name="email" />
                 <field name="relation" />
                 <field name="category_id" />
                 <field name="employee_id" string="Referrer" />
-            </tree>
+            </list>
         </field>
     </record>
     <record id="business_line_search_view" model="ir.ui.view">
@@ -102,7 +102,7 @@
     <record id="business_line_action" model="ir.actions.act_window">
         <field name="name">iPushp</field>
         <field name="res_model">business.line</field>
-        <field name="view_mode">search,tree,form</field>
+        <field name="view_mode">search,list,form</field>
         <field name="context">{'search_default_survey_filter':1}</field>
     </record>
     <!-- Menu Creation -->
