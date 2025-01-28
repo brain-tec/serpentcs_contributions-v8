@@ -2,13 +2,12 @@
     <template id="ipushp.search" name="iPushp Search">
         <t t-call="website.layout">
             <input name="csrf_token" t-att-value="request.csrf_token()" type="hidden" />
-            <section class="container mt64 mb64">
+            <section class="container check_category mt64 mb64">
                 <div class="categ_container">
                     <div class="conainer col-md-8 col-md-offset-2 rounded">
                         <h2>Find by Category</h2>
                         <input
                             id="myInput"
-                            onkeyup="myFunction()"
                             placeholder="Search for category.."
                             title="Type in a name"
                             type="text"

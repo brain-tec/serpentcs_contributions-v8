@@ -16,7 +16,7 @@
     <record id="action_buissness_category" model="ir.actions.act_window">
         <field name="name">Business Category</field>
         <field name="res_model">business.category</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
     <menuitem
         action="action_buissness_category"
@@ -40,7 +40,7 @@
     <record id="action_relation" model="ir.actions.act_window">
         <field name="name">Relation</field>
         <field name="res_model">relation.relation</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
     <menuitem
         action="action_relation"

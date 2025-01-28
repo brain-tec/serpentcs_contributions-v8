@@ -4,9 +4,9 @@
     "name": "iPushp - Employee Business Directory",
     "author": "Serpent Consulting Services Pvt. Ltd.",
     "category": "Human Resource",
-    "website": "http://www.serpentcs.com",
+    "website": "https://www.serpentcs.com",
     "summary": "iPushp",
-    "version": "17.0.1.0.0",
+    "version": "18.0",
     "license": "AGPL-3",
     "description": "iPushp - Employee Business Directory",
     "depends": ["hr", "website"],
@@ -22,13 +22,14 @@
     ],
     "assets": {
         "web.assets_frontend": [
-            "ipushp/static/src/js/custom.js",
+            "ipushp/static/src/js/custom_changes.js",
             "ipushp/static/src/css/fix_bg_snippet.css",
             "ipushp/static/src/css/style.css",
         ]
     },
-    "images": ["static/description/page_1.png"],
+    "images": ["static/description/Banner_ipushp_18.png"],
     "installable": True,
+    "price": 27,
     "currency": "EUR",
-    "price": 27
+    
 }
